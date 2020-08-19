@@ -6,7 +6,7 @@ const { TraerData } = require('../services/perfilDocente')
 
 /* GET home page. */
 router.post('/perfilDocente', PostData);
-router.get('/perfilDocente', TraerData);
+router.get('/perfilDocente/:id/', TraerData);
 
 
 module.exports = router;

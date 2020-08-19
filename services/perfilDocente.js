@@ -10,23 +10,33 @@ const query = util.promisify(db.query).bind(db);
 
 const TraerData = async (req, res, next) => {
     console.log(req.params.id)
-    try {
-      const result = await query(`SELECT persona.nombre_persona, persona.imagen_usuario, usuario.usser, usuario.pasword FROM rol INNER JOIN persona ON persona.fk_rol = rol.id_rol INNER JOIN Usuario ON persona.id_persona =usuario.fk_persona WHERE rol.nombre_rol = "docente" and persona.id_persona = '${req.params.id}'`);
-      res.json(result);
-    }
-    catch (error) {
-      console.log('Error =>', error);
-      res.send(error.sqlMessage);
-    }
+   
+      const result = await query(`SELECT persona.nombre_persona, usuario.usser, usuario.pasword FROM rol INNER JOIN persona ON persona.fk_rol = rol.id_rol INNER JOIN Usuario ON persona.id_persona =usuario.fk_persona WHERE rol.nombre_rol = "docente" and persona.id_persona = ${req.params.id}`);
+      console.log(result[0])
+      res.json(result[0]);
+  
+  
   };
   
   
-  
   const PostData = async (req, res, next) => {
-    let {nombre_persona, usuario, contraseña} = req.body;
+    const {nombre_persona, usuario, contraseña} = req.body;
       try {
-        const result = await query(`UPDATE persona INNER JOIN usuario ON usuario.fk_persona = persona.id_persona SET persona.nombre_persona = '?', usuario.usser= '?', usario.pasword='?'WHERE  id_persona = '${req.params.id}'`,  [nombre_persona], [usuario], [contraseña] );           
+        const result = await query(`
+        UPDATE 
+          persona 
+        INNER JOIN 
+          usuario 
+        ON 
+          usuario.fk_persona = persona.id_persona
+        SET 
+          persona.nombre_persona = '${nombre_persona}',
+          usuario.usser= '${usuario}',
+           usario.pasword='${contraseña}'
+        WHERE  
+          id_persona = ${req.query.id}` );           
         res.json(result);
+
       } catch (error) {
         console.log('Error =>', error);
         res.send(error.sqlMessage);
@@ -38,5 +48,13 @@ const TraerData = async (req, res, next) => {
     module.exports = {
       
       TraerData,
-      PostData
-    }
+     PostData
+    }/*
+    const resultado = await query(`
+    insert into persona
+    values
+    (
+      '${req.body.nombre_persona}',
+      '${usuario}'
+      )
+  `);*/

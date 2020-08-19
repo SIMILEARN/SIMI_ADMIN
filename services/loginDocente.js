@@ -6,11 +6,20 @@ const db = require('../utils/database').pool;
 
 // Promesas nativas
 const query = util.promisify(db.query).bind(db);
-const TraerData = async (req, res, next) => {
+const getData = async (req, res, next) => {
     console.log(req.params.id)
     try {
-      const result = await query(`SELECT usuario.usser, usuario.pasword FROM  persona INNER JOIN Usuario ON persona.id_persona =usuario.fk_persona WHERE usuario.usser="dana_@";
-      '${req.params.id}'`);
+      const result = await query(
+        `SELECT
+         usuario.usser, 
+         usuario.pasword
+           FROM
+             persona 
+              INNER JOIN
+               Usuario 
+               ON
+                persona.id_persona =usuario.fk_persona 
+                WHERE usuario.usser= '${req.params.id}'`);
       res.json(result);
     }
     catch (error) {
@@ -21,6 +30,6 @@ const TraerData = async (req, res, next) => {
   };
   
   module.exports = {
-  TraerData
+  getData
 
   }

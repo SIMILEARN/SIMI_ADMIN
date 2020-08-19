@@ -19,9 +19,7 @@ const GetData = async  (req, res, next) => {
 
 }
 
-
-<<<<<<< Updated upstream
-=======
+/*
 
 const eliminar = async (req, res, next) => {
   try {
@@ -34,8 +32,8 @@ const eliminar = async (req, res, next) => {
 };
 
 
+*/
 
->>>>>>> Stashed changes
 module.exports = {
   GetData,
   eliminar

@@ -6,13 +6,29 @@ const db = require('../utils/database').pool;
 // Promesas nativas
 const query = util.promisify(db.query).bind(db);
 
-  const GetData = async (req, res, next) => {
+const postData = async (req, res, next) => {
     let {nombre, edad, usuario, fk_ie, constraseña} = req.body;
-    console.log("entro al ");
+    console.log("entro al  gggggggg");
     try {
   
-         const persona= await query("INSERT INTO persona (nombre_persona,edad_persona,fk_ie) VALUES (?,?,?)", [nombre], [edad], [fk_ie]  );    
-         const user = await query("INSERT INTO usuario (usser, pasword) VALUES (?,?)", [usuario], [constraseña])  ; 
+         const persona= await query(`
+         INSERT INTO 
+         persona
+          (nombre_persona,
+            edad_persona,
+            fk_ie)
+             VALUES (
+               '${nombre}',
+                '${edad}',
+               ${fk_ie})` );    
+         const user = await query(`
+         INSERT INTO
+          usuario
+           (usser, 
+            pasword)
+             VALUES 
+             ('${usuario}',
+             '${constraseña}')`); 
           
       res.json(persona, user);
     } catch (error) {
@@ -21,9 +37,7 @@ const query = util.promisify(db.query).bind(db);
     }
   };
   
-  
-
   module.exports = {
-  GetData
+  postData
 
-  }
+}

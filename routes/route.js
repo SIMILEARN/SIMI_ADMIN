@@ -7,7 +7,7 @@ router.use(
     require('./estudiantes'),
     require('./index'),
     require('./listarE'),
-    require('./listarT'),
+    // require('./listarT'),
     require('./preguntaDI'),
     require('./preguntaIM'),
     require('./preguntaIN'),
@@ -17,15 +17,11 @@ router.use(
     require('./testDI'),
     require('./testIM'),
     require('./testIN'),
-<<<<<<< Updated upstream
-   
-=======
-    require('./agregarCurso'),
-    require('./listarECurso'),
+    require('./listarCurso'),
+    //require('./listarECurso'),
     require('./perfilDocente'),
-    require('./agregarDocente'),
+    require('./agregarDocente.js'),
     require('./loginDocente'),
->>>>>>> Stashed changes
   ]
 );
 

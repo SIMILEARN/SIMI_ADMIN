@@ -1,11 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const {getData } = require('../services/loginDocente')
-
+const { postData } = require('../services/agregarDocente')
 
 /* GET home page. */
-router.get('/loginDocente/:id/',getData);
-
-
+router.get('/agregarDocente', postData);
 
 module.exports = router;
