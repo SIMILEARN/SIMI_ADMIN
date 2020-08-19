@@ -1,0 +1,131 @@
+<div class="table-agile-info">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Estudiantes
+        </div>
+        <div>
+
+            <form class="form-horizontal bucket-form" method="delete" action="/listarTe" id="eliminarTest">
+
+                <table class="table" ui-jq="footable" ui-options='{
+        "paging": {
+          "enabled": true
+        },
+        "filtering": {
+          "enabled": true
+        },
+        "sorting": {
+          "enabled": true
+        }}'>
+
+
+                    <thead>
+                        <tr>
+
+                            <th>Nombre Test</th>
+
+                            <th data-breakpoints="xs">Cantidad de preguntas</th>
+
+                            <th data-breakpoints="xs sm md" data-title="DOB">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {{#each test}}
+
+                        <tr>
+                            <td>{{nombre_test}}</td>
+                            <td>{{cant_preguntas_test}}</td>
+                            {{/each}}
+                            <td>
+                                <div id="actionsContainer">
+                                    <div id="actiosItems">
+                                        <span id="span1">
+
+                                            <a class="nav-link" href="#" onclick="traerPreguntas({{id}})">
+                                                <i class="fas fa-fw fa-edit"></i>
+                                            </a>
+                                        </span>
+                                        <span id="span2"><a class="nav-link" href="#" onclick="eliminar({{id}})">
+                                                <i class="fa fa-trash"></i>
+                                            </a></span>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="preguntas" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog" style="width:1250px" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{test.nombre_test}}</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form>
+
+                    {{#each pregunta}}
+
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label" id="texto"
+                            name="texto">{{pregunta.texto}}</label>
+                        <label for="staticEmail" class="col-sm-2 col-form-label" id="imagen"
+                            name="imagen"></label>>{{pregunta.imagen}}</label>
+                        <label for="staticEmail" class="col-sm-2 col-form-label" id="imagen"
+                            name="imagen"></label>>{{respuesta.texto}}</label>
+                    </div>
+
+
+
+
+                    {{/each}}
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                    onclick="cerrar()">Cancelar</button>
+                <a class="btn btn-primary" href="#" id="actionForm" onclick="guardar()">Guardar</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+
+    function traerPreguntas(id) {
+        console.log("entro a traer")
+
+        $('#preguntas').modal('show');
+        fetch(`/listarTe/${id}`, {
+            method: 'GET',
+            body: JSON.stringify({})
+            headers: { 'Content-Type': 'application/json' }
+        }).then(result => {
+            $('#CategoryModal').modal('hide');
+            location.reload();
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
+
+
+
+</script>

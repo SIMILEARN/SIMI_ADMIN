@@ -7,6 +7,6 @@ const { TraerData } = require('../services/preguntaIM')
 /* GET home page. */
 router.get('/preguntaIM', GetData);
 router.get('/preguntaIM', TraerData);
-router.get('/preguntaIM', PostData);
+router.post('/preguntaIM', PostData);
 
 module.exports = router;

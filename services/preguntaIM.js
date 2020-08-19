@@ -11,7 +11,9 @@ const query = util.promisify(db.query).bind(db);
 
 /* GET home page. */
 const GetData = async (req, res, next) => {
-  const result = await query('SELECT * FROM test ');
+
+
+  const result = await query('SELECT * FROM test');
   
   res.render('preguntaIM', { test: result,  layout: 'admin', title: 'Productos' })
 
@@ -21,7 +23,11 @@ const GetData = async (req, res, next) => {
 const TraerData = async (req, res, next) => {
   console.log(req.params.id)
   try {
-    const result = await query(`SELECT test.cant_preguntas_test FROM test WHERE test.id = '${req.params.id}'`);
+    const result = await query(`SELECT test.cant_preguntas_test, pregunta.texto, pregunta.imagen_pregunta
+    from pregunta
+    INNER JOIN test_preguntas ON test_preguntas.fk_pregunta = pregunta.id
+    INNER JOIN test ON test.id = test_preguntas.fk_test 
+     WHERE test.id = '${req.params.id}'`);
     res.json(result);
   }
   catch (error) {

@@ -20,12 +20,12 @@ router.get('/', function (req, res, next) {
 */
 const GetData = async (req, res, next) => {
 
-  const result = await query('SELECT persona.nombre_persona,persona.edad_persona,ie.nombre_insitucion FROM persona INNER JOIN rol ON persona.fk_rol = rol.id_rol INNER JOIN ie ON persona.fk_ie = ie.id_insitucion WHERE persona.id_persona = estudiante');
+  const result = await query('SELECT persona.nombre_persona,persona.edad_persona,ie.nombre_insitucion FROM persona INNER JOIN rol ON persona.fk_rol = rol.id_rol INNER JOIN ie ON persona.fk_ie = ie.id_insitucion WHERE rol.nombre_rol = "estudiante"');
 
-  const progreso = await query('CALL progreso(?)', result);
+ // const progreso = await query('CALL progreso(?)', result);
   //const progreso = await query(`CALL progreso(${nombre}))`);
 
-  res.render('estudiantes', { estudiante: result, progreso: progreso, layout: 'admin', title: 'Estudiantes' })
+  res.render('estudiantes', { estudiante: result, layout: 'admin', title: 'Estudiantes' })
 };
 
 module.exports = {

@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-const { GetData } = require('../services/agregarT')
-const { postData } = require('../services/agregarT')
+const ModeloTemas= require('../services/agregarT')
+
 
 /* GET home page. */
-router.get('/agregarT', GetData);
-router.get('/agregarT', postData);
+router.get('/agregarT', ModeloTemas.GetData);
+router.post('/agregarT',ModeloTemas.postData);
 
 module.exports = router;

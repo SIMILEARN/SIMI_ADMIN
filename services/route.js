@@ -5,7 +5,7 @@ router.use(
     require('./agregarE'),
     require('./agregarT'),
     require('./estudiantes'),
-    require('./index'),
+    require('./indexP'),
     require('./listarE'),
     require('./listarT'),
     require('./preguntaDI'),
@@ -18,11 +18,7 @@ router.use(
     require('./testDI'),
     require('./testIM'),
     require('./testIN'),
-    require('./listarCurso'),
-   // require('./listarECurso'), 
-    require('./perfilDocente'),
-    require('./agregarDocente'),
-    require('./loginDocente'),
+    require('./listarTe'),
     
   ]
 );

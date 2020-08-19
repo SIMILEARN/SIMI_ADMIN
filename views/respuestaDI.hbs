@@ -13,14 +13,16 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Nombre del test</label>
                             <div class="col-sm-6">
-                                <option selected> Buscar </option>
-                                {{#each test}}
-                                <option value="1" id="test">{{nombre_test}} </option>
-                                {{/each}}
+                                <select id="mySelect" onchange="myFunction()">
+
+                                    {{#each test}}
+                                    <option value="1" id="testNombre" name="nombre_test"> {{nombre_test}} </option>
+
+                                    {{/each}}
+                                </select>
                             </div>
                         </div>
 
-                     
 
                         <div class="form-group">
                             <div class="col-lg-offset-3 col-lg-6">
@@ -43,43 +45,59 @@
                                     </div>
                                     <div class="modal-body">
 
-                                        <form role="form">
-
+                                        <form class="form-horizontal bucket-form" method="post" action="/testDI" id="cargarTestDI">
+                     
 
                                             <div class="panel-body">
                                                 <div class="position-center">
-                                                    <form role="form">
-                                                    
+                                                    <form class="form-horizontal bucket-form" method="post"
+                                                        action="/testDI" id="cargarTestDI">
 
+                                                        {{#each test}}
+                                                        <option value="1" id="test">{{pregunta.texto}} </option>
+
+                                                        {{/each}}
                                                         <div class="form-group">
                                                             <label for="exampleInputFile">Respuesta 1</label>
-                                                            <input type="file" id="img1[]">
-                                                            <p class="help-block">Example block-level help text here.
-                                                            </p>
+                                                            <input type="file" id="img1[]" name="imagen_respuesta">
+                                                            <input type="checkbox" id="validacion" value="validacion">
+                                                            <label for="cbox2"> Correcta </label>
+                                                           
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label for="exampleInputFile">Respuesta 2</label>
-                                                            <input type="file" id="img2[]">
-                                                            <p class="help-block">Example block-level help text here.
-                                                            </p>
+                                                            <input type="file" id="img2[]" name="imagen_respuesta">
+                                                            <input type="checkbox" id="validacion" value="validacion">
+                                                            <label for="cbox2"> Correcta </label>
+
                                                         </div>
 
                                                         <div class="form-group">
                                                             <label for="exampleInputFile">Respuesta 3</label>
-                                                            <input type="file" id="img3[]">
-                                                            <p class="help-block">Example block-level help text here.
-                                                            </p>
+                                                            <input type="file" id="img3[]" name="imagen_respuesta">
+                                                            <input type="checkbox" id="validacion" value="validacion">
+                                                            <label for="cbox2"> Correcta </label>
                                                         </div>
-
 
                                                     </form>
                                                 </div>
-
-                                                <button type="submit" class="btn btn-info">Guardar </button>
+                                                div
 
                                             </div>
                                         </form>
+
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-10">
+
+
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                                    onclick="cerrar()">Cancelar</button>
+                                                <a class="btn btn-primary" href="#" id="actionForm"
+                                                    onclick="guardar()">Guardar</a>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -97,27 +115,56 @@
 </div>
 
 <script>
-  function guardar() {
-    var data = new FormData()
-   
-    data.append('imagen1', document.getElementById('img1[]').files[0]);
-    data.append('imagen2', document.getElementById('img2[]').files[1]);
-    data.append('imagen3', document.getElementById('img3[]').files[2]);
 
-    fetch('respuestasDI', {
-      method: 'POST',
-      body: data
-    }).then(result => {
-      return result.json();
-    }).then(data => {
-      console.log(data)
-      $('#myModal').modal('hide');
-      location.reload();
-    })
-    .catch(err => {
-      console.log(err);
-    });
+ 
+    modelo.CrearAdministrador = async (req, res) => {
+        //Consultar primero si el usuario ya existe
+        const consultaem = await pool.query("select * from test where id=?", req.body.testNombre);
+        if (consultaem.length > 0) {
+            //Cambio la alerta para enviar
+            alerta = {
+                tipo: 'inseguro',
+                mensaje: 'El usuario existe registrado',
+                boton: ''
+            }
+            //Envio la vista 
+            res.redirect('/respuestaDI');
+        } else {
 
-  };
+            //---- query de la funcion almacenada en la base de datos, para realizar el insert del administrador---
+            var sql = " SELECT `INSERTAR_NEWEMPRESA`(" + req.body.TipoDocumento + ",'" + req.body.DocumentoAdministrador + "','" + req.body.tarjetaAdministrador + "','" + req.body.NombreAdministrador + "','" + req.body.ApellidoAdministrador + "'," + req.body.GeneroAdminitrador + "," + req.body.ProfesionAdministrador + ",'" + req.body.EspecialidadAdministrador + "','" + req.body.DescripcionAdministrador + "'," + req.body.MunicipioAdministrador + ",'" + req.body.CelularAdministrador + "','" + req.body.FijoAdministrador + "','" + req.body.DireccionAdministrador + "','" + req.body.CorreoAdministrador + "','" + req.body.PagoAdministrador + "','" + req.body.Tiempo_prom + "','" + req.body.DocumentoAdministrador + "','" + contrasena + "', " + req.body.Cant_Empleado + ") AS retorno";
+            await pool.query(sql, (err, resultado) => {
+                if (err) {
+                    console.log(err);
+                    alerta = {
+                        tipo: 'peligro',
+                        mensaje: 'El registro fallo',
+                        boton: ''
+                    }
+                    res.redirect('/admin/Administradores');
+                } else {
+
+                    if (resultado[0].retorno == 0) {
+
+                        enviar_correo.EnvioCorreo(req.body.CorreoAdministrador, req.body.DocumentoAdministrador, pass);
+
+                        //Cambio la alerta para enviar
+                        alerta = {
+                            tipo: 'correcto',
+                            mensaje: 'Usuario Registrado con exito',
+                            boton: ''
+                        }
+                        //realizar prueba con email real para provar el metodo de enviar
+                        //Envio la vista 
+                        res.redirect('/admin/Administradores');
+                    }
+                }
+            });
+
+        }
+
+    }
+
+//#endregion
 
 </script>

@@ -1,11 +1,9 @@
-<!--sidebar start-->
-
 <div id="sidebar" class="nav-collapse">
     <!-- sidebar menu start-->
     <div class="leftside-navigation">
         <ul class="sidebar-menu" id="nav-accordion" href="/">
             <li {{#ifEquals title 'Dashboard'}} class="nav-item active" {{else}} class="nav-item" {{/ifEquals}}>
-                <a class="active" href="/index">
+                <a class="active" href="/indexP">
                     <i class="fa fa-dashboard"></i>
                     <span>Inicio</span>
                 </a>
@@ -35,6 +33,8 @@
                         {{/ifEquals}}><a href="testDI">Test Didáctico</a></li>
                     <li {{#ifEquals title 'Test Inglés'}} class="nav-item active" {{else}} class="nav-item"
                         {{/ifEquals}}><a href="testIN">Test Inglés</a></li>
+                    <li {{#ifEquals title 'Listar Tests'}} class="nav-item active" {{else}} class="nav-item"
+                        {{/ifEquals}}><a href="listarTe">Listar Tests</a></li>
 
                 </ul>
             </li>
@@ -47,10 +47,10 @@
                 <ul class="sub">
                     <li {{#ifEquals title 'IM'}} class="nav-item active" {{else}} class="nav-item" {{/ifEquals}}><a
                             href="preguntaIM">IM</a></li>
-                    <li {{#ifEquals title 'Didáctico'}} class="nav-item active" {{else}} class="nav-item"
-                        {{/ifEquals}}><a href="preguntaDI">Didáctico</a></li>
-                    <li {{#ifEquals title 'Inglés'}} class="nav-item active" {{else}} class="nav-item"
-                        {{/ifEquals}}><a href="preguntaIN">Inglés</a></li>
+                    <li {{#ifEquals title 'Didáctico'}} class="nav-item active" {{else}} class="nav-item" {{/ifEquals}}>
+                        <a href="preguntaDI">Didáctico</a></li>
+                    <li {{#ifEquals title 'Inglés'}} class="nav-item active" {{else}} class="nav-item" {{/ifEquals}}><a
+                            href="preguntaIN">Inglés</a></li>
 
                 </ul>
             </li>
@@ -61,11 +61,11 @@
                     <span>Respuestas</span>
                 </a>
                 <ul class="sub">
-                    
-                    <li {{#ifEquals title 'Didáctico'}} class="nav-item active" {{else}} class="nav-item"
-                        {{/ifEquals}}><a href="respuestaDI">Didáctico</a></li>
-                    <li {{#ifEquals title 'Inglés'}} class="nav-item active" {{else}} class="nav-item"
-                        {{/ifEquals}}><a href="respuestaIN">Inglés</a></li>
+
+                    <li {{#ifEquals title 'Didáctico'}} class="nav-item active" {{else}} class="nav-item" {{/ifEquals}}>
+                        <a href="respuestaDI">Didáctico</a></li>
+                    <li {{#ifEquals title 'Inglés'}} class="nav-item active" {{else}} class="nav-item" {{/ifEquals}}><a
+                            href="respuestaIN">Inglés</a></li>
 
                 </ul>
             </li>

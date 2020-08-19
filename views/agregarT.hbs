@@ -1,70 +1,34 @@
 <div class="table-agile-info">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            Agregar Temáticas
-        </div>
-
-        <div class="panel-body">
-            <form class="form-horizontal bucket-form">
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Nombre Temática</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" id="nombre">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-3 control-label">Tipo </label>
-                    <div class="col-sm-6">
-
-                        <select class="form-control input-lg m-bot15">
-                            {{#each tipo}}
-                            <option value="1" id="tipoT">{{tipo_tema}} </option>
-                            {{/each}}
-                        </select>
-
-                    </div>
-                </div>
-                   <div class="form-group">
-        <div class="col-lg-offset-5 col-lg-10">
-
-          <button class="btn btn-primary" href="#" id="actionForm" onclick="guardar2()">Guardar</button>
-
-        </div>
-      </div>
-
-            </form>
-
-        </div>
-
-
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Agregar Temáticas
     </div>
+    <div class="panel-body">
+      <form class="form-horizontal bucket-form" method="POST" action="/agregarT" id="cargarTema"></form>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Nombre Temática</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" id="nombre"  name="nombre">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Tipo </label>
+          <div class="col-sm-6">
 
+            <select class="form-control input-lg m-bot15" name="tipoTema">
+              {{#each tipo}}
+              <option value="{{id_tipotema}}"  id="tipoT">{{tipo_tema}} </option>
+              {{/each}}
+            </select>
+
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-5 col-lg-10">
+            <button class="btn btn-primary" type="submit" id="actionForm">Guardar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-
-<script> 
-function guardar2() {
-  console.log("si esta entrando");
-};
-
-  function guardar() {
-    var data = new FormData()
-    data.append('nombre', document.getElementById("nombre").value);
-    data.append('fk_tipo_tema', document.getElementById("tipoT").value);
-
-    fetch('agregarT', {
-      method: 'POST',
-      body: data
-    }).then(result => {
-      return result.json();
-    }).then(data => {
-      console.log(data)
-      $('agregarT');
-      location.reload();
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-  };
-
-</script> 

@@ -9,27 +9,31 @@
                 </header>
 
                 <div class="panel-body">
-                    <form class="form-horizontal bucket-form" method="get">
+                    <form class="form-horizontal bucket-form" method="post" action="/testDI" id="cargarTestDI">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Nombre del test</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" id="nombre_test">
+                                <input type="text" class="form-control" id="nombre_test" name="nombre_test">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Numero de preguntas</label>
                             <div class="col-sm-6">
-                                <input type="number" class="form-control" id="numero">
+                                <input type="number" class="form-control" id="numero" name="cant_preguntas_test">
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-lg-offset-3 col-lg-6">
-                                <button type="submit" class="btn btn-info">Guardar Test</button>
+                    </form>
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
 
-                            </div>
+                            <button class="btn btn-primary" href="#" id="actionForm" type="submit">Guardar</button>
+
                         </div>
+                    </div>
+
+                </div>
 
 
 
@@ -38,30 +42,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    function guardar() {
-        var data = new FormData()
-        data.append('nombre', document.getElementById("nombre_test").value);
-        data.append('descripcion', document.getElementById("numero").value);
-
-
-        fetch('testDI', {
-            method: 'POST',
-            body: data
-        }).then(result => {
-            return result.json();
-        }).then(data => {
-            console.log(data)
-            $('#testDI');
-            location.reload();
-        })
-            .catch(err => {
-                console.log(err);
-            });
-
-    };
-
-
-
-</script>

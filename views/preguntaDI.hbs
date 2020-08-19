@@ -5,18 +5,23 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Test Inteligencias Múltiples
+                    Preguntas Didacticas
                 </header>
 
                 <div class="panel-body">
                     <form class="form-horizontal bucket-form" method="get">
+
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Nombre del test</label>
                             <div class="col-sm-6">
-                                <option selected> Buscar </option>
-                                {{#each test}}
-                                <option value="1" id="test">{{nombre_test}} </option>
-                                {{/each}}
+                                <select id="mySelect" onchange="myFunction()">
+                                    {{#each test}}
+                                    <option value="1" id="test">{{nombre_test}} </option>
+                                    {{/each}}
+
+                                </select>
+
+
                             </div>
                         </div>
 
@@ -54,19 +59,26 @@
                                                         <div class="form-group">
                                                             <label for="exampleInputFile">Imagen Enunciado</label>
                                                             <input type="file" id="Pregunta">
-                                                         
+
                                                         </div>
-                                                        <div class="form-group">
-                                                            <div class="col-lg-offset-2 col-lg-10">
-                                                                <button type="submit" class="btn btn-danger">Guardar
-                                                                </button>
-                                                            </div>
-                                                        </div>
+
                                                     </form>
                                                 </div>
                                             </div>
 
                                         </form>
+
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-10">
+
+
+                                                <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                                    onclick="cerrar()">Cancelar</button>
+                                                <a class="btn btn-primary" href="#" id="actionForm"
+                                                    onclick="guardar()">Guardar</a>
+
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -80,39 +92,39 @@
 </div>
 
 <script>
-  function guardar() {
-    var data = new FormData()
-    data.append('nombre', document.getElementById("nombre").value);
-    data.append('imagen1', document.getElementById('img1[]').files[0]);
-    
-    fetch('respuestasDI', {
-      method: 'POST',
-      body: data
-    }).then(result => {
-      return result.json();
-    }).then(data => {
-      console.log(data)
-      $('#myModal').modal('hide');
-      location.reload();
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    function guardar() {
+        var data = new FormData()
+        data.append('nombre', document.getElementById("nombre").value);
+        data.append('imagen1', document.getElementById('img1[]').files[0]);
 
-  };
+        fetch('respuestasDI', {
+            method: 'POST',
+            body: data
+        }).then(result => {
+            return result.json();
+        }).then(data => {
+            console.log(data)
+            $('#myModal').modal('hide');
+            location.reload();
+        })
+            .catch(err => {
+                console.log(err);
+            });
+
+    };
 
     function traer(id) {
-    fetch(`respuestasDI${id}`, {
-      method: 'GET',
-      body: JSON.stringify({ nombre: document.getElementById("test").value }),
-      headers: { 'Content-Type': 'application/json' }
-    }).then(result => {
-      $('#myModal').modal('hide');
-      location.reload();
-    }).catch(err => {
-      console.log(err);
-    });
-  }
+        fetch(`respuestasDI${id}`, {
+            method: 'GET',
+            body: JSON.stringify({ nombre: document.getElementById("test").value }),
+            headers: { 'Content-Type': 'application/json' }
+        }).then(result => {
+            $('#myModal').modal('hide');
+            location.reload();
+        }).catch(err => {
+            console.log(err);
+        });
+    }
 
 
 </script>

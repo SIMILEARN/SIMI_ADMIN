@@ -9,6 +9,8 @@ const query = util.promisify(db.query).bind(db);
 
 /* GET home page. */
 const GetData= async (req, res, next) => {
+
+  
   res.render('preguntaDI', { title: 'Express', layout: 'admin' });
 };
 

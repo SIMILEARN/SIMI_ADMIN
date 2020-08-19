@@ -14,17 +14,24 @@ const GetData = async (req, res, next) => {
 
 /* agregar test */
 const PostData = async (req, res, next) => {
-  let {  nombre, cant_preguntas_test, tiempo_limite_test} = req.body;
-  try {
-    const result = await query("INSERT INTO test (nombre_test, cant_preguntas_test, tiempo_limite_test) VALUES (?,?)", [nombre], [cant_preguntas_test] , [tiempo_limite_test]);           
-    res.json(result);
-  } catch (error) {
-    console.log('Error =>', error);
-    res.send(error.sqlMessage);
-  }
-};
+  let {nombre_test, cant_preguntas_test, tiempo_limite_test} = req.body;
 
+   let datos ={
+     nombre_test:req.body.nombre_test,
+     cant_preguntas_test:req.body.cant_preguntas_test,
+     tiempo_limite_test: req.body.tiempo_limite_test,
+   }
+     await db.query("INSERT INTO test set ?", [datos], (err, result)=>{
+          if(err){
+            console.log(err)
+          }else{
+            res.redirect('/testDI');
+          }
+          
+     } );           
+   
 
+}
 
 
 module.exports = {
