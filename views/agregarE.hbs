@@ -10,29 +10,34 @@
 
 
                 <div class="panel-body">
-                    <form class="form-horizontal bucket-form" method="get">
+                    <form class="form-horizontal bucket-form" method="post" action="/agregarE" id="cargarEstrategia">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Nombre Estrategia</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="nombre_estrategia">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Inteligenca </label>
                             <div class="col-sm-6">
-                                <select class="form-control input-lg m-bot15">
-                                    <option>Logico matematica</option>
-                                    <option>Verbal</option>
+                                <select class="form-control input-lg m-bot15" id="mySelect" onchange="myFunction()"
+                                    name="fk_inteligencia">
+                                    {{#each inteligencia}}
+                                    <option value="1" id="test">{{nombre}} </option>
+                                    {{/each}}
                                 </select>
+
 
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Tema </label>
                             <div class="col-sm-6">
-                                <select class="form-control input-lg m-bot15">
-                                    <option>Famlia</option>
-                                    <option>Vocabulario</option>
+                                <select class="form-control input-lg m-bot15" id="mySelect" onchange="myFunction()"
+                                    name="fk_tema">
+                                    {{#each tema}}
+                                    <option value="1" id="test">{{nombre}} </option>
+                                    {{/each}}
                                 </select>
 
                             </div>
@@ -40,17 +45,28 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Tipo de Actividad</label>
                             <div class="col-sm-6">
-                                <select class="form-control input-lg m-bot15">
-                                    <option>Famlia</option>
-                                    <option>Vocabulario</option>
-                                </select>
+
+                                <input type="text" class="form-control" id="pregunta" name="actividad">
+
 
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-default">Agregar</button>
 
-                    </form>
+
+               
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+
+
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                onclick="cerrar()">Cancelar</button>
+                            <button class="btn btn-primary" href="#" id="actionForm" type="submit">Guardar</button>
+
+                        </div>
+                    </div>
+                         </form>
 
                 </div>
 
@@ -61,3 +77,4 @@
 
         <!-- page end-->
     </div>
+</div>

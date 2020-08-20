@@ -5,86 +5,71 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Test Didáctico
+                    Agregar Respuestas
                 </header>
 
                 <div class="panel-body">
-                    <form class="form-horizontal bucket-form" method="get">
+
+                    <form class="form-horizontal bucket-form" method="post" action="/testDI" id="cargarTestDI">
+
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Nombre del test</label>
+                            <label class="col-sm-3 control-label">Seleccione la Pregunta</label>
                             <div class="col-sm-6">
-                                <option selected> Buscar </option>
-                                {{#each test}}
-                                <option value="1" id="test">{{nombre_test}} </option>
-                                {{/each}}
-                            </div>
-                        </div>
+                                <select id="mySelect" onchange="myFunction()">
 
-                     
+                                    {{#each pregunta}}
+                                    <option value="1" id="fk_pregunta" name="fk_pregunta"> {{texto}} </option>
 
-                        <div class="form-group">
-                            <div class="col-lg-offset-3 col-lg-6">
-                                <a href="#myModal" data-toggle="modal" class="btn btn-success">
-                                    Crear Respuestas
-                                </a>
-
+                                    {{/each}}
+                                </select>
                             </div>
                         </div>
 
 
-                        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
-                            class="modal fade">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button aria-hidden="true" data-dismiss="modal" class="close"
-                                            type="button">×</button>
-                                        <h4 class="modal-title">Preguntas test Didáctico</h4>
-                                    </div>
-                                    <div class="modal-body">
+                        <div class="panel-body">
+                            <div class="position-center">
 
-                                        <form role="form">
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Respuesta 1</label>
+                                    <input type="text" id="img3[]" name="texo">
+                                    <input type="file" id="img1[]" name="imagen_respuesta">
+                                    <input type="checkbox" id="validacion" value="validacion">
+                                    <label for="cbox2"> Correcta </label>
 
-
-                                            <div class="panel-body">
-                                                <div class="position-center">
-                                                    <form role="form">
-                                                    
-
-                                                        <div class="form-group">
-                                                            <label for="exampleInputFile">Respuesta 1</label>
-                                                            <input type="file" id="img1[]">
-                                                            <p class="help-block">Example block-level help text here.
-                                                            </p>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="exampleInputFile">Respuesta 2</label>
-                                                            <input type="file" id="img2[]">
-                                                            <p class="help-block">Example block-level help text here.
-                                                            </p>
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="exampleInputFile">Respuesta 3</label>
-                                                            <input type="file" id="img3[]">
-                                                            <p class="help-block">Example block-level help text here.
-                                                            </p>
-                                                        </div>
-
-
-                                                    </form>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-info">Guardar </button>
-
-                                            </div>
-                                        </form>
-                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Respuesta 2</label>
+                                    <input type="text" id="img3[]" name="texo">
+                                    <input type="file" id="img2[]" name="imagen_respuesta">
+                                    <input type="checkbox" id="validacion" value="validacion">
+                                    <label for="cbox2"> Correcta </label>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Respuesta 3</label>
+                                    <input type="text" id="img3[]" name="texo">
+                                    <input type="file" id="img3[]" name="imagen_respuesta">
+                                    <input type="checkbox" id="validacion" value="validacion">
+                                    <label for="cbox2"> Correcta </label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+
+
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                onclick="cerrar()">Cancelar</button>
+                            <a class="btn btn-primary" href="#" id="actionForm" onclick="guardar()">Guardar</a>
+
+                        </div>
+                    </div>
 
             </section>
 
@@ -95,29 +80,3 @@
     </div>
 
 </div>
-
-<script>
-  function guardar() {
-    var data = new FormData()
-   
-    data.append('imagen1', document.getElementById('img1[]').files[0]);
-    data.append('imagen2', document.getElementById('img2[]').files[1]);
-    data.append('imagen3', document.getElementById('img3[]').files[2]);
-
-    fetch('respuestasDI', {
-      method: 'POST',
-      body: data
-    }).then(result => {
-      return result.json();
-    }).then(data => {
-      console.log(data)
-      $('#myModal').modal('hide');
-      location.reload();
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-  };
-
-</script>

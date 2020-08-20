@@ -5,12 +5,16 @@
         </div>
 
         <div class="table-responsive">
+      <form class="form-horizontal bucket-form" method="DELETE" action="/listarT" id="cargarTema">
+
             <table class="table table-striped b-t b-light">
                 <thead>
                     <tr>
 
                         <th>Nombre </th>
                         <th>Tipo </th>
+                        <th>Accion </th>
+
 
 
                     </tr>
@@ -22,13 +26,25 @@
 
                     <tr>
                         <td>{{nombre}}</td>
-                        <td>{{tipo_tema}}</td>
+                        <td>{{tipo}}</td>
+                        <td>
+                            <div id="actionsContainer">
+                                <div id="actiosItems">
+                                   
+                                    <span id="span2"><a class="nav-link" href="#" onclick="">
+                                            <i class="fa fa-trash"></i>
+                                        </a></span>
+                                </div>
+                            </div>
+                        </td>
+
+
                     </tr>
-                    {{/each}}
-
-
+                     {{/each}}
                 </tbody>
             </table>
+
+            </form>
 
         </div>
     </div>
