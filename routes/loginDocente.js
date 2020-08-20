@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const { GetData } = require('../services/listarT')
+const {getData } = require('../services/loginDocente')
+
 
 /* GET home page. */
-router.get('/listarT', GetData);
+router.get('/loginDocente/:id/',getData);
+
+
 
 module.exports = router;

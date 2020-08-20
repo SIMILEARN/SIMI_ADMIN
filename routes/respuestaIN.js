@@ -5,6 +5,6 @@ const { PostData } = require('../services/respuestaIN')
 
 /* GET home page. */
 router.get('/respuestaIN', GetData);
-router.post('/respuestaIN', PostData);
+router.get('/respuestaIN', PostData);
 
 module.exports = router;

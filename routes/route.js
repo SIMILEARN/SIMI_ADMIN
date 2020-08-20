@@ -5,17 +5,23 @@ router.use(
     require('./agregarE'),
     require('./agregarT'),
     require('./estudiantes'),
-    require('./indexP'),
+    require('./index'),
     require('./listarE'),
-    require('./listarT'),
+    // require('./listarT'),
     require('./preguntaDI'),
+    require('./preguntaIM'),
+    require('./preguntaIN'),
     require('./profesores'),
     require('./respuestaIN'),
     require('./respuestaDI'),
     require('./testDI'),
-
-    require('./listarTe'),
-   
+    require('./testIM'),
+    require('./testIN'),
+    require('./listarCurso'),
+    //require('./listarECurso'),
+    require('./perfilDocente'),
+    require('./agregarDocente.js'),
+    require('./loginDocente'),
   ]
 );
 
