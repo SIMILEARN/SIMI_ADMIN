@@ -8,34 +8,22 @@ const query = util.promisify(db.query).bind(db);
 
 /* GET home page. */
 const GetData = async(req, res, next) => {
-
-    const result = await query('SELECT * FROM pregunta');
-    res.render('respuestaIN', { pregunta: result, title: 'Express', layout: 'admin' });
+    res.render('respuestaIN', { title: 'Express', layout: 'admin' });
 };
 
 
-
-
+/* agregar respuestas */
 const PostData = async (req, res, next) => {
-    let { texto, imagen_respuesta, fk_pregunta } = req.body;
-   
-    console.log("entro al post");
-     let datos ={
-      texto:req.body.imagen_respuesta,
-      validacion:req.body.validacion,
-      fk_pregunta:req.body.fk_pregunta,
-     }
-       await db.query("INSERT INTO respuesta set ?", [datos], (err, result)=>{
-            if(err){
-              console.log(err)
-            }else{
-              res.redirect('/agregarT');
-            }
-            
-       } );           
-     
-  
-  }
+    var { texto, validacion } = req.body;
+    try {
+        const result = await query("INSERT INTO respuesta (texto, validacion) VALUES (?,?)", [texto], [validacion]);
+
+        res.json(result);
+    } catch (error) {
+        console.log('Error =>', error);
+        res.send(error.sqlMessage);
+    }
+};
 
 
 

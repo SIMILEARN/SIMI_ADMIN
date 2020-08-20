@@ -9,7 +9,7 @@ const query = util.promisify(db.query).bind(db);
 
 /* listar estrategias */
 const GetData = async (req, res, next) => {
-  const result = await query('SELECT * from estrategia');
+  const result = await query('SELECT estrategia.actividad,tema.nombre FROM estrategia INNER JOIN tema ON estrategia.fk_inteligenca = tema.id AND estrategia.fk_tema = tema.id');
  console.log(result)
   res.render('listarE', { estrategias: result, layout: 'admin', title: 'Estudiantes' })
 
