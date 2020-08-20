@@ -1,0 +1,7 @@
+DATABASE_URL = mysql://root:root@localhost/simi?reconnect=true
+
+DB_HOST = localhost
+DB_USERNAME = root
+DB_PASSWORD = root
+DB_DATABASE = simi
+DB_PORT = 3306
