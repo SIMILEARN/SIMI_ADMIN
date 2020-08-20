@@ -8,7 +8,7 @@ const query = util.promisify(db.query).bind(db);
 
   
   const PostData = async (req, res, next) => {
-    let {id,pin,nombre,fk_docente, fechaI, fechaf,estado} = req.body;
+    let {id,pin_curso,nombre_curso,fk_docente, fecha_inicio, fecha_fin,estado} = req.body;
     
       try {
         const result = await query(
@@ -22,13 +22,13 @@ const query = util.promisify(db.query).bind(db);
           'fecha_fin',
            'estado') 
           VALUES (
-            ${id},
-            ${pin},
+            '${id}',
+            '${pin_curso}',
             '${fk_docente}',
-            '${nombre}',
-            '${fechaI}',
-            '${fechaf}',
-            ${estado})`);           
+            '${nombre_curso}',
+            '${fecha_inicio}',
+            '${fecha_fin}',
+            '${estado}')`);           
         res.json(result);
       } catch (error) {
         console.log('Error =>', error);

@@ -19,25 +19,6 @@ const TraerData= async (req, res, next) => {
 
   res.json(result);
 };
-
-
-
- /*
-
-
-  
-  
-  const PostData = async (req, res, next) => {
-      var {texto} = req.body;
-      try {
-        const result = await query("INSERT INTO curso (pin_curso,nombre_curso,fecha_inicio,fecha_fin) VALUES (?)", [texto]);           
-        res.json(result);
-      } catch (error) {
-        console.log('Error =>', error);
-        res.send(error.sqlMessage);
-      }
-    };
-    */
     
     module.exports = {
       GetData,
