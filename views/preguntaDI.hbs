@@ -5,85 +5,80 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Preguntas Didacticas
+                   Agregar Preguntas 
                 </header>
 
                 <div class="panel-body">
-                    <form class="form-horizontal bucket-form" method="get">
+                    <form class="form-horizontal bucket-form" method="post" action="/preguntaDI" id="cargarPregunta">
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Nombre del test</label>
                             <div class="col-sm-6">
-                                <select id="mySelect" onchange="myFunction()">
-                                    {{#each test}}
-                                    <option value="1" id="test">{{nombre_test}} </option>
-                                    {{/each}}
 
+                                <select class="form-control form-control-lg" id="test" name="fk_test">
+                                    {{#each test}}
+                                    <option value="{{id}}" onclick="GET" name="fk_test">{{nombre_test}}</option>
+                                    {{/each}}
                                 </select>
 
 
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <div class="col-lg-offset-3 col-lg-6">
-                                <a href="#myModal" data-toggle="modal" class="btn btn-success">
-                                    Crear preguntas
-                                </a>
+                        <form class="form-horizontal bucket-form" method="post" action="/preguntaDI"
+                            id="cargarPregunta">
 
-                            </div>
-                        </div>
-
-                        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
-                            class="modal fade">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button aria-hidden="true" data-dismiss="modal" class="close"
-                                            type="button">×</button>
-                                        <h4 class="modal-title">Preguntas</h4>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        <form role="form">
-
-                                            <div class="panel-body">
-                                                <div class="position-center">
-                                                    <form class="form-horizontal" role="form">
-                                                        <div class="form-group">
-                                                            <label for="exampleInputEmail1">Enunciado </label>
-                                                            <input type="email" class="form-control" id="enunciado"
-                                                                placeholder="Enter email">
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="exampleInputFile">Imagen Enunciado</label>
-                                                            <input type="file" id="Pregunta">
-
-                                                        </div>
-
-                                                    </form>
-                                                </div>
-                                            </div>
-
-                                        </form>
+                            <div class="panel-body">
+                                <div class="position-center">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Enunciado </label>
+                                            <input type="email" class="form-control" id="enunciado" name="texto"
+                                                placeholder="Enunciado">
+                                        </div>
 
                                         <div class="form-group">
-                                            <div class="col-lg-offset-2 col-lg-10">
+                                            <label for="exampleInputFile">Imagen Enunciado</label>
+                                            <input type="file" id="Pregunta" name="imagen_pregunta">
 
-
-                                                <button class="btn btn-secondary" type="button" data-dismiss="modal"
-                                                    onclick="cerrar()">Cancelar</button>
-                                                <a class="btn btn-primary" href="#" id="actionForm"
-                                                    onclick="guardar()">Guardar</a>
-
-                                            </div>
                                         </div>
-                                    </div>
+
+
+                                        <div class="form-group">
+                                            <label for="exampleInputFile">Tema </label>
+                                            <select class="form-control form-control-lg" id="test" name="test">
+                                                {{#each tema}}
+                                                <option value="{{id}}" onclick="GET">{{nombre}}</option>
+                                                {{/each}}
+                                            </select>
+
+
+                                        </div>
+
+
+
+                                    </form>
                                 </div>
+                            </div>
+
+                        </form>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-3 col-lg-6">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                    onclick="cerrar()">Cancelar</button>
+                                <button class="btn btn-success" type="submit">
+                                    Crear pregunta
+                                </button>
+
                             </div>
                         </div>
 
+                    </form>
+
+
+
+                </div>
 
             </section>
 
@@ -92,38 +87,22 @@
 </div>
 
 <script>
-    function guardar() {
-        var data = new FormData()
-        data.append('nombre', document.getElementById("nombre").value);
-        data.append('imagen1', document.getElementById('img1[]').files[0]);
+    $(document).ready(function () {
 
-        fetch('respuestasDI', {
-            method: 'POST',
-            body: data
-        }).then(result => {
-            return result.json();
-        }).then(data => {
-            console.log(data)
-            $('#myModal').modal('hide');
-            location.reload();
-        })
-            .catch(err => {
-                console.log(err);
-            });
 
-    };
 
-    function traer(id) {
-        fetch(`respuestasDI${id}`, {
-            method: 'GET',
-            body: JSON.stringify({ nombre: document.getElementById("test").value }),
-            headers: { 'Content-Type': 'application/json' }
-        }).then(result => {
-            $('#myModal').modal('hide');
-            location.reload();
-        }).catch(err => {
-            console.log(err);
-        });
+
+
+    }
+
+    );
+
+    function traerPreguntas() {
+        $('#preguntasDi').modal('show');
+        const id = document.getElementById("mySelect").value;
+        alert(id);
+
+
     }
 
 

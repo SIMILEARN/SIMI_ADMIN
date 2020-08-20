@@ -5,18 +5,20 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    Test Didáctico
+                    Agregar Respuestas
                 </header>
 
                 <div class="panel-body">
-                    <form class="form-horizontal bucket-form" method="get">
+
+                    <form class="form-horizontal bucket-form" method="post" action="/testDI" id="cargarTestDI">
+
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Nombre del test</label>
+                            <label class="col-sm-3 control-label">Seleccione la Pregunta</label>
                             <div class="col-sm-6">
                                 <select id="mySelect" onchange="myFunction()">
 
-                                    {{#each test}}
-                                    <option value="1" id="testNombre" name="nombre_test"> {{nombre_test}} </option>
+                                    {{#each pregunta}}
+                                    <option value="1" id="fk_pregunta" name="fk_pregunta"> {{texto}} </option>
 
                                     {{/each}}
                                 </select>
@@ -24,85 +26,50 @@
                         </div>
 
 
-                        <div class="form-group">
-                            <div class="col-lg-offset-3 col-lg-6">
-                                <a href="#myModal" data-toggle="modal" class="btn btn-success">
-                                    Crear Respuestas
-                                </a>
+                        <div class="panel-body">
+                            <div class="position-center">
 
-                            </div>
-                        </div>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Respuesta 1</label>
+                                    <input type="text" id="img3[]" name="texo">
+                                    <input type="file" id="img1[]" name="imagen_respuesta">
+                                    <input type="checkbox" id="validacion" value="validacion">
+                                    <label for="cbox2"> Correcta </label>
 
-
-                        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal"
-                            class="modal fade">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button aria-hidden="true" data-dismiss="modal" class="close"
-                                            type="button">×</button>
-                                        <h4 class="modal-title">Preguntas test Didáctico</h4>
-                                    </div>
-                                    <div class="modal-body">
-
-                                        <form class="form-horizontal bucket-form" method="post" action="/testDI" id="cargarTestDI">
-                     
-
-                                            <div class="panel-body">
-                                                <div class="position-center">
-                                                    <form class="form-horizontal bucket-form" method="post"
-                                                        action="/testDI" id="cargarTestDI">
-
-                                                        {{#each test}}
-                                                        <option value="1" id="test">{{pregunta.texto}} </option>
-
-                                                        {{/each}}
-                                                        <div class="form-group">
-                                                            <label for="exampleInputFile">Respuesta 1</label>
-                                                            <input type="file" id="img1[]" name="imagen_respuesta">
-                                                            <input type="checkbox" id="validacion" value="validacion">
-                                                            <label for="cbox2"> Correcta </label>
-                                                           
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="exampleInputFile">Respuesta 2</label>
-                                                            <input type="file" id="img2[]" name="imagen_respuesta">
-                                                            <input type="checkbox" id="validacion" value="validacion">
-                                                            <label for="cbox2"> Correcta </label>
-
-                                                        </div>
-
-                                                        <div class="form-group">
-                                                            <label for="exampleInputFile">Respuesta 3</label>
-                                                            <input type="file" id="img3[]" name="imagen_respuesta">
-                                                            <input type="checkbox" id="validacion" value="validacion">
-                                                            <label for="cbox2"> Correcta </label>
-                                                        </div>
-
-                                                    </form>
-                                                </div>
-                                                div
-
-                                            </div>
-                                        </form>
-
-                                        <div class="form-group">
-                                            <div class="col-lg-offset-2 col-lg-10">
-
-
-                                                <button class="btn btn-secondary" type="button" data-dismiss="modal"
-                                                    onclick="cerrar()">Cancelar</button>
-                                                <a class="btn btn-primary" href="#" id="actionForm"
-                                                    onclick="guardar()">Guardar</a>
-
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Respuesta 2</label>
+                                    <input type="text" id="img3[]" name="texo">
+                                    <input type="file" id="img2[]" name="imagen_respuesta">
+                                    <input type="checkbox" id="validacion" value="validacion">
+                                    <label for="cbox2"> Correcta </label>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Respuesta 3</label>
+                                    <input type="text" id="img3[]" name="texo">
+                                    <input type="file" id="img3[]" name="imagen_respuesta">
+                                    <input type="checkbox" id="validacion" value="validacion">
+                                    <label for="cbox2"> Correcta </label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </form>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+
+
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                onclick="cerrar()">Cancelar</button>
+                            <a class="btn btn-primary" href="#" id="actionForm" onclick="guardar()">Guardar</a>
+
+                        </div>
+                    </div>
 
             </section>
 
@@ -113,58 +80,3 @@
     </div>
 
 </div>
-
-<script>
-
- 
-    modelo.CrearAdministrador = async (req, res) => {
-        //Consultar primero si el usuario ya existe
-        const consultaem = await pool.query("select * from test where id=?", req.body.testNombre);
-        if (consultaem.length > 0) {
-            //Cambio la alerta para enviar
-            alerta = {
-                tipo: 'inseguro',
-                mensaje: 'El usuario existe registrado',
-                boton: ''
-            }
-            //Envio la vista 
-            res.redirect('/respuestaDI');
-        } else {
-
-            //---- query de la funcion almacenada en la base de datos, para realizar el insert del administrador---
-            var sql = " SELECT `INSERTAR_NEWEMPRESA`(" + req.body.TipoDocumento + ",'" + req.body.DocumentoAdministrador + "','" + req.body.tarjetaAdministrador + "','" + req.body.NombreAdministrador + "','" + req.body.ApellidoAdministrador + "'," + req.body.GeneroAdminitrador + "," + req.body.ProfesionAdministrador + ",'" + req.body.EspecialidadAdministrador + "','" + req.body.DescripcionAdministrador + "'," + req.body.MunicipioAdministrador + ",'" + req.body.CelularAdministrador + "','" + req.body.FijoAdministrador + "','" + req.body.DireccionAdministrador + "','" + req.body.CorreoAdministrador + "','" + req.body.PagoAdministrador + "','" + req.body.Tiempo_prom + "','" + req.body.DocumentoAdministrador + "','" + contrasena + "', " + req.body.Cant_Empleado + ") AS retorno";
-            await pool.query(sql, (err, resultado) => {
-                if (err) {
-                    console.log(err);
-                    alerta = {
-                        tipo: 'peligro',
-                        mensaje: 'El registro fallo',
-                        boton: ''
-                    }
-                    res.redirect('/admin/Administradores');
-                } else {
-
-                    if (resultado[0].retorno == 0) {
-
-                        enviar_correo.EnvioCorreo(req.body.CorreoAdministrador, req.body.DocumentoAdministrador, pass);
-
-                        //Cambio la alerta para enviar
-                        alerta = {
-                            tipo: 'correcto',
-                            mensaje: 'Usuario Registrado con exito',
-                            boton: ''
-                        }
-                        //realizar prueba con email real para provar el metodo de enviar
-                        //Envio la vista 
-                        res.redirect('/admin/Administradores');
-                    }
-                }
-            });
-
-        }
-
-    }
-
-//#endregion
-
-</script>

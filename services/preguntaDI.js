@@ -8,29 +8,41 @@ const query = util.promisify(db.query).bind(db);
 
 
 /* GET home page. */
-const GetData= async (req, res, next) => {
+const GetData = async (req, res, next) => {
 
+  const result = await query('SELECT * FROM test');
+
+  const temas = await query('SELECT * FROM tema');
   
-  res.render('preguntaDI', { title: 'Express', layout: 'admin' });
+  res.render('preguntaDI', { test: result, tema:temas, title: 'Express', layout: 'admin' });
 };
 
 
 
-/* agregar preguntas */
-const PostData= async (req, res, next) => {
-    let {texto, imagen} = req.body;
-    try {
-      const result = await query("INSERT INTO pregunta (fk_tema, texto, imagen) VALUES (?,?,?)", [03], [texto] , imagen);           
-      res.json(result);
-    } catch (error) {
-      console.log('Error =>', error);
-      res.send(error.sqlMessage);
-    }
-  };
+const PostData = async (req, res, next) => {
 
 
-  module.exports = {
-    GetData,
-    PostData
+
+  let { texto, imagen_pregunta, fk_test } = req.body;
+
+  console.log("entro al post");
+  let datos = {
+    texto: req.body.texto,
+    imagen_pregunta: req.body.imagen_pregunta,
+    fk_test: req.body.fk_test,
   }
-  
+  await db.query("INSERT INTO pregunta set ?", [datos], (err, result) => {
+    if (err) {
+      console.log(err)
+    } else {
+      res.redirect('/preguntaDI');
+    }
+
+  });
+
+
+}
+module.exports = {
+  GetData,
+  PostData
+}

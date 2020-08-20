@@ -17,7 +17,7 @@ const GetData = async(req, res, next) => {
 
 
 const PostData = async (req, res, next) => {
-    let { texto, imagen_respuesta, texto } = req.body;
+    let { texto, imagen_respuesta, fk_pregunta } = req.body;
    
     console.log("entro al post");
      let datos ={

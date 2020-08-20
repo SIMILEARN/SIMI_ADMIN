@@ -9,14 +9,11 @@ router.use(
     require('./listarE'),
     require('./listarT'),
     require('./preguntaDI'),
-    require('./preguntaIM'),
-    require('./preguntaIN'),
     require('./profesores'),
     require('./respuestaIN'),
     require('./respuestaDI'),
     require('./testDI'),
-    require('./testIM'),
-    require('./testIN'),
+
     require('./listarTe'),
    
   ]
