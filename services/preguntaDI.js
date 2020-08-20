@@ -20,9 +20,6 @@ const GetData = async (req, res, next) => {
 
 
 const PostData = async (req, res, next) => {
-
-
-
   let { texto, imagen_pregunta, fk_test } = req.body;
 
   console.log("entro al post");
@@ -39,6 +36,49 @@ const PostData = async (req, res, next) => {
     }
 
   });
+  try {
+    await db.getConnection((err, conn) => {
+      if (err) {
+        if (callback) callback(err, null);
+        return;
+      }
+      //Inicia la transacción
+      conn.beginTransaction( async function(err) {
+        if (err) { throw err; }
+        await conn.query("INSERT INTO pregunta set ?", [datos], async (err, result) => {
+          if (err) { 
+            conn.rollback(() => {
+              throw err;
+            });
+          }
+          //Retorna el id de la factura que se acaba de insertar
+          var idPregunta = result.insertId;
+          /*Llama un procedimiento almacenado para que inserte el detalle de la factura
+            El procedimiento recibe como parámetros el id de la factura y el id del pedido.
+            El procedimiento contiene un cursor que obtiene los productos y cantidades del detalle del pedido para saber cuales items debe agregar al detalle de la factura
+          */
+          await conn.query(`CALL pdetalle_factura(${id_factura}, ${req.body.pedido})`, async (err, result) => {
+            if(err){
+              conn.rollback(() => {
+                throw err;
+              });
+            }
+          });
+          await conn.commit(async function (err) {
+            if (err) {
+              await conn.rollback(async function () {
+                throw err;
+              });
+            }
+            await conn.release();
+            res.json(result);
+          });
+        });
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  } 
 
 
 }
