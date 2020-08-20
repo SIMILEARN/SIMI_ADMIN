@@ -5,6 +5,6 @@ const { TraerData } = require('../services/listarCurso')
 //localhost:3000/listarCurso?id:2
 
 router.get('/listarCurso', GetData);
-router.get('/listarCurso', TraerData);
+router.get('/listarCurso/:id/', TraerData);
 
 module.exports = router;
