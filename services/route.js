@@ -23,11 +23,12 @@ router.use(
     require('./listarPreguntasIM'),
     require('./listarPreguntasI'),
     require('./listarTestI'),
+    require('./listarTestIngles'),
    // require('./listarECurso'), 
     require('./perfilDocente'),
     require('./agregarDocente'),
     require('./loginDocente'),
-    
+    require('./listarResultadoIM'),
   ]
 );
 
