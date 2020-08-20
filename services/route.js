@@ -21,6 +21,8 @@ router.use(
     require('./listarCurso'),
     require('./listarTestIM'),
     require('./listarPreguntasIM'),
+    require('./listarPreguntasI'),
+    require('./listarTestI'),
    // require('./listarECurso'), 
     require('./perfilDocente'),
     require('./agregarDocente'),
