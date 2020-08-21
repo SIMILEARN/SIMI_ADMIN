@@ -2,6 +2,7 @@ const router = require('express').Router();
 //empiece a importar asi
 router.use(
   [
+    require('./agregarCurso'),
     require('./agregarE'),
     require('./agregarT'),
     require('./estudiantes'),
@@ -26,7 +27,7 @@ router.use(
     require('./listarPreguntasI'),
     //require('./listarECurso'),
     require('./perfilDocente'),
-    require('./agregarDocente.js'),
+    require('./agregarDocente'),
     require('./loginDocente'),
     
   ]

@@ -3,6 +3,6 @@ var router = express.Router();
 const { postData } = require('../services/agregarDocente')
 
 /* GET home page. */
-router.get('/agregarDocente', postData);
+router.post('/agregarDocente', postData);
 
 module.exports = router;

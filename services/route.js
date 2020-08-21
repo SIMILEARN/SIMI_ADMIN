@@ -2,6 +2,7 @@ const router = require('express').Router();
 //empiece a importar asi
 router.use(
   [
+    require('./agregarCurso'),
     require('./agregarE'),
     require('./agregarT'),
     require('./estudiantes'),
