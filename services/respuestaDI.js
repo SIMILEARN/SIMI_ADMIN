@@ -10,40 +10,28 @@ const query = util.promisify(db.query).bind(db);
 const GetData = async (req, res, next) => {
 
   const result = await query('SELECT * FROM pregunta');
-  
-  res.render('respuestaDI', { pregunta: result,  title: 'Express', layout: 'admin' });
-};
 
-  
+  res.render('respuestaDI', { pregunta: result, title: 'Express', layout: 'admin' });
+};
 
 
 const PostData = async (req, res, next) => {
-  let { texto, validacion, imagen_respuesta, fk_pregunta } = req.body;
-
- console.log(validacion);
+  console.log(req.body.texto)
   console.log("entro al post");
-   let datos ={
-    texto:req.body.texto,
-    imagen_respuesta:req.body.imagen_respuesta,
-    validacion:req.body.validacion,
-    fk_pregunta:req.body.fk_pregunta,
-   }
-     await db.query("INSERT INTO respuesta set ?", [datos], (err, result)=>{
-          if(err){
-            console.log(err)
-          }else{
-            res.redirect('/agregarT');
-          }
-          
-     } );           
-   
+  await db.query(`CALL insertarRespuestas(${req.body.fk_pregunta},${req.body.texto},${req.body.texto2},${req.body.texto3},${req.body.validacion},${req.body.validacion2},${req.body.validacion3},${req.body.imagen_respuesta},${req.body.imagen_respuesta2},${req.body.imagen_respuesta3} )`, (err, result) => {
+    if (err) {
+      console.log(err)
+    } else {
+      res.redirect('/respuestaDI');
+    }
+
+  });
+
 
 }
 
-  
+module.exports = {
+  GetData,
+  PostData
 
-  module.exports = {
-    GetData,
-    PostData
-
-  };
+};

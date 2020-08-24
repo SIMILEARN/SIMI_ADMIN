@@ -20,22 +20,21 @@ const GetData = async (req, res, next) => {
 
 
 const PostData = async (req, res, next) => {
-  let { texto, imagen_pregunta, fk_test } = req.body;
+//  let { texto, imagen_pregunta, fk_test } = req.body;
 
-  console.log("entro al post");
-  let datos = {
-    texto: req.body.texto,
-    imagen_pregunta: req.body.imagen_pregunta,
-    fk_test: req.body.fk_test,
+  console.log(req.body.fk_tema);
+  console.log(req.body.texto);
+  console.log(req.body.imagen_pregunta);
+  console.log(req.body.fk_test);
+
+
+  let datos ={
+    fk_tema:req.body.fk_tema,
+    texto:req.body.texto,
+    imagen_pregunta:req.body.imagen_pregunta
+
   }
-  await db.query("INSERT INTO pregunta set ?", [datos], (err, result) => {
-    if (err) {
-      console.log(err)
-    } else {
-      res.redirect('/preguntaDI');
-    }
-
-  });
+ 
   try {
     await db.getConnection((err, conn) => {
       if (err) {
@@ -54,10 +53,11 @@ const PostData = async (req, res, next) => {
           //Retorna el id de la factura que se acaba de insertar
           var idPregunta = result.insertId;
           /*Llama un procedimiento almacenado para que inserte el detalle de la factura
-            El procedimiento recibe como parámetros el id de la factura y el id del pedido.
+            El procedimiento recibe como parámetros el id de la pregunta y el id del del test
             El procedimiento contiene un cursor que obtiene los productos y cantidades del detalle del pedido para saber cuales items debe agregar al detalle de la factura
           */
-          await conn.query(`CALL pdetalle_factura(${id_factura}, ${req.body.pedido})`, async (err, result) => {
+         console.log(idPregunta);
+          await conn.query(`CALL insertar_test_preguntas(${idPregunta}, ${req.body.fk_test})`, async (err, result) => {
             if(err){
               conn.rollback(() => {
                 throw err;
@@ -79,6 +79,8 @@ const PostData = async (req, res, next) => {
   } catch (error) {
     console.log(error);
   } 
+
+  res.redirect('/preguntaDI');
 
 
 }

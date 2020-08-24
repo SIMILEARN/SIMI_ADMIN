@@ -17,6 +17,8 @@
                 <ul class="sub">
                     <li class="sub-menu" {{#ifEquals title 'Agregar'}} class="nav-item active" {{else}} class="nav-item"
                         {{/ifEquals}}><a href="agregarE">Agregar</a></li>
+                    <li class="sub-menu" {{#ifEquals title 'Actividad'}} class="nav-item active" {{else}}
+                        class="nav-item" {{/ifEquals}}><a href="actividad">Actvidad</a></li>
                     <li class="sub-menu" {{#ifEquals title 'Listar'}} class="nav-item active" {{else}} class="nav-item"
                         {{/ifEquals}}><a href="listarE">Listar</a></li>
                 </ul>
@@ -27,7 +29,7 @@
                     <span> Tests</span>
                 </a>
                 <ul class="sub">
-                  
+
                     <li {{#ifEquals title 'Agregar Test'}} class="nav-item active" {{else}} class="nav-item"
                         {{/ifEquals}}><a href="testDI">Agregar Test</a></li>
                     <li {{#ifEquals title 'Listar Tests'}} class="nav-item active" {{else}} class="nav-item"
@@ -42,10 +44,11 @@
                     <span>Preguntas</span>
                 </a>
                 <ul class="sub">
-                  
-                    <li {{#ifEquals title 'Agregar Preguntas'}} class="nav-item active" {{else}} class="nav-item" {{/ifEquals}}>
+
+                    <li {{#ifEquals title 'Agregar Preguntas'}} class="nav-item active" {{else}} class="nav-item"
+                        {{/ifEquals}}>
                         <a href="preguntaDI">Agregar Preguntas</a></li>
-                  
+
 
                 </ul>
             </li>
@@ -57,9 +60,10 @@
                 </a>
                 <ul class="sub">
 
-                    <li {{#ifEquals title 'Agregar Respuestas'}} class="nav-item active" {{else}} class="nav-item" {{/ifEquals}}>
+                    <li {{#ifEquals title 'Agregar Respuestas'}} class="nav-item active" {{else}} class="nav-item"
+                        {{/ifEquals}}>
                         <a href="respuestaDI">Agregar Respuestas</a></li>
-                  
+
                 </ul>
             </li>
 

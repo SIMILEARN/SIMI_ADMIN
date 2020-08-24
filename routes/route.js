@@ -13,7 +13,7 @@ router.use(
     require('./respuestaIN'),
     require('./respuestaDI'),
     require('./testDI'),
-
+    require('./actividad'),
     require('./listarTe'),
    
   ]

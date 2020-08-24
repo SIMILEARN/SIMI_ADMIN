@@ -1,0 +1,33 @@
+<div class="table-agile-info">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Agregar Actividad
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal bucket-form" method="POST" action="/actividad" id="cargarActivdad">
+        <div class="form-group">
+          <label class="col-sm-3 control-label"> Actividad</label>
+          
+            <input type="text" class="form-control" id="nombre"  name="actividad">
+   
+        </div>
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Nombre Estrategia  </label>
+          <div class="col-sm-6">
+
+            <select class="form-control input-lg m-bot15" name="fk_estrategia">
+              {{#each estrategia}}
+              <option value="{{id_estrategia}}"  id="tipoT">{{nombre_estrategia}} </option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-lg-offset-5 col-lg-10">
+            <button class="btn btn-primary" type="submit" id="actionForm">Guardar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

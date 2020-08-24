@@ -5,7 +5,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                   Agregar Preguntas 
+                    Agregar Preguntas
                 </header>
 
                 <div class="panel-body">
@@ -15,7 +15,7 @@
                             <label class="col-sm-3 control-label">Nombre del test</label>
                             <div class="col-sm-6">
 
-                                <select class="form-control form-control-lg" id="test" name="fk_test">
+                                <select class="form-control form-control-lg" id="fk_test" name="fk_test">
                                     {{#each test}}
                                     <option value="{{id}}" onclick="GET" name="fk_test">{{nombre_test}}</option>
                                     {{/each}}
@@ -25,43 +25,38 @@
                             </div>
                         </div>
 
-                        <form class="form-horizontal bucket-form" method="post" action="/preguntaDI"
-                            id="cargarPregunta">
 
-                            <div class="panel-body">
-                                <div class="position-center">
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Enunciado </label>
-                                            <input type="email" class="form-control" id="enunciado" name="texto"
-                                                placeholder="Enunciado">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">Imagen Enunciado</label>
-                                            <input type="file" id="Pregunta" name="imagen_pregunta">
-
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label for="exampleInputFile">Tema </label>
-                                            <select class="form-control form-control-lg" id="test" name="test">
-                                                {{#each tema}}
-                                                <option value="{{id}}" onclick="GET">{{nombre}}</option>
-                                                {{/each}}
-                                            </select>
-
-
-                                        </div>
-
-
-
-                                    </form>
+                        <div class="panel-body">
+                            <div class="position-center">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Enunciado </label>
+                                    <input type="text" class="form-control" id="enunciado" name="texto"
+                                        placeholder="Enunciado">
                                 </div>
-                            </div>
 
-                        </form>
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Imagen Enunciado</label>
+                                    <input type="file" id="Pregunta" name="imagen_pregunta">
+
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="exampleInputFile">Tema </label>
+                                    <select class="form-control form-control-lg" id="fk_tema" name="fk_tema">
+                                        {{#each tema}}
+                                        <option value="{{id}}" onclick="GET">{{nombre}}</option>
+                                        {{/each}}
+                                    </select>
+
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
 
                         <div class="form-group">
                             <div class="col-lg-offset-3 col-lg-6">
