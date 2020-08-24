@@ -18,14 +18,69 @@ const GetData = async (req, res, next) => {
 const PostData = async (req, res, next) => {
   console.log(req.body.texto)
   console.log("entro al post");
-  await db.query(`CALL insertarRespuestas(${req.body.fk_pregunta},${req.body.texto},${req.body.texto2},${req.body.texto3},${req.body.validacion},${req.body.validacion2},${req.body.validacion3},${req.body.imagen_respuesta},${req.body.imagen_respuesta2},${req.body.imagen_respuesta3} )`, (err, result) => {
-    if (err) {
-      console.log(err)
-    } else {
-      res.redirect('/respuestaDI');
-    }
+  let { texto, texto2, texto3, fk_pregunta, imagen_respuesta, imagen_respuesta2, imagen_respuesta3, validacion, validacion2, validacion3 } = req.body;
+  console.log(req.body);
+ 
 
-  });
+  
+ console.log(val);
+  try {
+
+    const respuesta1 = await query(`
+       INSERT INTO 
+       respuesta
+        (
+          fk_pregunta,
+          texto,
+          validacion,
+          imagen_respuesta
+          )
+        VALUES (
+          ${fk_pregunta},
+            '${texto}',
+            1,
+            '${imagen_respuesta}' 
+        )`
+    );
+    const respuesta2 = await query(`
+    INSERT INTO 
+    respuesta
+     (
+       fk_pregunta,
+       texto,
+       validacion,
+       imagen_respuesta
+       )
+     VALUES (
+       ${fk_pregunta},
+         '${texto2}',
+         0,
+         '${imagen_respuesta2}' 
+     )`
+    );
+    const respuesta3 = await query(`
+    INSERT INTO 
+    respuesta
+      (
+        fk_pregunta,
+        texto,
+        validacion,
+        imagen_respuesta
+        )
+      VALUES (
+    ${fk_pregunta},
+      '${texto3}',
+      0,
+      '${imagen_respuesta3}' 
+  )`
+    );
+
+    res.redirect('/respuestaDI');
+    res.json({ "success": 'ok' });
+  } catch (error) {
+    console.log('Error =>', error);
+    res.send(error.sqlMessage);
+  }
 
 
 }

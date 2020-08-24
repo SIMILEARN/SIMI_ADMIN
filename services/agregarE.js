@@ -22,7 +22,6 @@ const postData = async (req, res, next) => {
    let datos ={
     fk_tema:req.body.fk_tema,
     fk_inteligencia:req.body.fk_inteligencia,
-    actividad:req.body.actividad,
     nombre_estrategia:req.body.nombre_estrategia,
    }
      await db.query("INSERT INTO estrategia set ?", [datos], (err, result)=>{
